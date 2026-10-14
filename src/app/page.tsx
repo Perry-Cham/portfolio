@@ -39,10 +39,7 @@ export default async function HomePage() {
                 Available for freelance work
               </p>
               <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-                Hi, I&rsquo;m Alex —{' '}
-                <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-                  full-stack developer
-                </span>
+                Hi, I'm Perry,
               </h1>
               <p className="mt-6 max-w-xl text-lg text-muted-foreground">
                 I design and build web applications end-to-end — from the
@@ -51,6 +48,8 @@ export default async function HomePage() {
                 thousands of people, and I care obsessively about clean
                 abstractions, accessibility, and shipping things that actually
                 work in production, not just in demos.
+
+                I
               </p>
               <p className="mt-4 max-w-xl text-base text-muted-foreground">
                 Right now I&rsquo;m focused on the Next.js + TypeScript +
@@ -81,16 +80,6 @@ export default async function HomePage() {
                     <Github className="h-5 w-5" />
                   </Link>
                 </Button>
-                <Button variant="ghost" size="icon" asChild>
-                  <Link
-                    href="https://linkedin.com"
-                    aria-label="LinkedIn"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Linkedin className="h-5 w-5" />
-                  </Link>
-                </Button>
               </div>
             </div>
 
@@ -108,7 +97,7 @@ export default async function HomePage() {
                     </div>
                   </div>
                   <pre className="overflow-hidden font-mono text-xs leading-relaxed text-muted-foreground">
-                    <code>{`const alex = {
+                    <code>{`const Perry = {
   role: "Full-Stack Dev",
   stack: ["Next.js", "TS",
           "Prisma", "Node"],
@@ -136,18 +125,12 @@ export default async function HomePage() {
               About me
             </p>
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              From database to design system.
+              A Geeky Tech Lover
             </h2>
           </div>
           <div className="space-y-4 text-base text-muted-foreground lg:col-span-2">
             <p>
-              I&rsquo;m a self-taught developer who fell into this world
-              building custom themes for forum software back in 2013. What
-              started as a hobby turned into a career: I&rsquo;ve since worked
-              at seed-stage startups, a 200-person fintech, and as a freelance
-              consultant. The through-line has always been the same — I love the
-              whole stack, from picking the right index for a slow query to
-              tweaking the focus ring on a button.
+              I'm a self-taught developer who started programming back in 2020 out of an interest in apps games and generally all things tech. I love building projects and bringing visions to life whther my own or for a client and I'm always looking for people to network with.
             </p>
             <p>
               I believe the best software comes from a tight feedback loop
@@ -177,8 +160,8 @@ export default async function HomePage() {
                 Latest projects
               </h2>
               <p className="mt-4 text-base text-muted-foreground">
-                A few things I&rsquo;ve shipped recently. The full list lives
-                on the projects page — these are just the three most recent.
+                A few things projects I've worked on recently. The full list lives
+                on the projects page.
               </p>
             </div>
             <Button asChild variant="outline" size="lg">
@@ -191,14 +174,7 @@ export default async function HomePage() {
           {latest.length === 0 ? (
             <div className="rounded-xl border border-dashed border-border/60 p-12 text-center">
               <p className="text-sm text-muted-foreground">
-                No projects yet. Add some from the{' '}
-                <Link
-                  href="/admin"
-                  className="font-medium text-primary hover:underline"
-                >
-                  admin panel
-                </Link>
-                .
+                Nothing to see here.
               </p>
             </div>
           ) : (

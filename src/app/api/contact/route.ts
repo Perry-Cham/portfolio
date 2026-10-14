@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
       { status: 422 }
     )
   }
-
+// Route this to an email provider so that itgoes to my gmail address
   const { name, email, subject, message } = parsed.data
 
   const saved = await db.contactMessage.create({

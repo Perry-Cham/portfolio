@@ -29,7 +29,7 @@ export function Navbar() {
           <span className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
             <Code2 className="h-4 w-4" />
           </span>
-          <span className="text-base">Alex Carter</span>
+          <span className="text-base">Perry</span>
         </Link>
 
         <div className="hidden items-center gap-1 md:flex">
@@ -84,13 +84,6 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <Link
-              href="/admin"
-              onClick={() => setOpen(false)}
-              className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted"
-            >
-              Admin
-            </Link>
           </div>
         </div>
       )}

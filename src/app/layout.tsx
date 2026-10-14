@@ -21,22 +21,21 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Alex Carter — Full-Stack Developer",
   description:
-    "Portfolio of Alex Carter, a full-stack developer building modern web applications with React, Next.js, Node.js, and TypeScript.",
+    "Portfolio For Perry Chamileke, A Frontend Web Developer with experience in Nextjs, React and Typescript Projects",
   keywords: [
-    "Alex Carter",
-    "full-stack developer",
+    "Perry Chamileke",
     "Next.js",
     "TypeScript",
     "React",
     "Node.js",
     "portfolio",
   ],
-  authors: [{ name: "Alex Carter" }],
+  authors: [{ name: "Perry Chamileke" }],
   openGraph: {
-    title: "Alex Carter — Full-Stack Developer",
+    title: "Perry Chamileke - Frontend Web Developer",
     description:
-      "Full-stack developer building modern web applications end-to-end.",
-    siteName: "Alex Carter",
+      "Frontend Web Developer and Tech Enthuisiast",
+    siteName: "Perry Chamileke",
     type: "website",
   },
 };

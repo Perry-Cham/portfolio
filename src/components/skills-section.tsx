@@ -1,4 +1,4 @@
-import { Code, Database, Layout, Server, Wrench, Zap } from 'lucide-react'
+import { Code, Database, Layout, Server, Wrench, Zap, Settings } from 'lucide-react'
 
 type SkillGroup = {
   icon: React.ReactNode
@@ -15,18 +15,6 @@ const groups: SkillGroup[] = [
     items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'shadcn/ui'],
   },
   {
-    icon: <Server className="h-5 w-5" />,
-    title: 'Backend',
-    blurb: 'APIs, auth, and server logic that scale cleanly.',
-    items: ['Node.js', 'Bun', 'tRPC', 'REST', 'Better-Auth'],
-  },
-  {
-    icon: <Database className="h-5 w-5" />,
-    title: 'Data',
-    blurb: 'Modeling, querying, and managing state at any layer.',
-    items: ['PostgreSQL', 'Prisma', 'SQLite', 'Redis', 'Drizzle'],
-  },
-  {
     icon: <Zap className="h-5 w-5" />,
     title: 'Realtime',
     blurb: 'Live experiences for collab and dashboards.',
@@ -38,12 +26,12 @@ const groups: SkillGroup[] = [
     blurb: 'DX and pipelines that keep teams unblocked.',
     items: ['Vite', 'ESLint', 'Vitest', 'Playwright', 'GitHub Actions'],
   },
-  {
+/*  {
     icon: <Code className="h-5 w-5" />,
     title: 'Languages',
-    blurb: 'Comfortable across the stack and the REPL.',
-    items: ['TypeScript', 'JavaScript', 'Python', 'Go', 'SQL'],
-  },
+    blurb: 'I pick whatever tool I need for the job',
+    items: ['TypeScript',  'Dart'],
+  },*/
 ]
 
 export function SkillsSection() {
@@ -58,8 +46,7 @@ export function SkillsSection() {
             Skills & tools
           </h2>
           <p className="mt-4 text-base text-muted-foreground">
-            I&rsquo;ve spent the last several years shipping production web
-            software end-to-end. These are the technologies I reach for daily —
+            I've spent the last few years broadening my horizons with different tools. These are the technologies I reach for daily —
             picked because they make me faster, the code clearer, and the
             product better, not because they happen to be trendy this week.
           </p>

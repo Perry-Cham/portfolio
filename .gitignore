@@ -50,5 +50,4 @@ test
 prompt
 
 server.log
-# Skills directory
-/skills/
+scripts
