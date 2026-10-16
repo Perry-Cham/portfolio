@@ -14,7 +14,7 @@ export default function ContactPage() {
         <p className="mt-4 text-base text-muted-foreground">
           Tell me about your project, your team, or the thing you wish existed
           but doesn&rsquo;t yet. I read every message myself and reply within a
-          day or two to anything that looks like a real fit.
+          day or two.
         </p>
       </div>
 
@@ -40,7 +40,6 @@ export default function ContactPage() {
                     href="mailto:hello@alexcarter.dev"
                     className="text-muted-foreground hover:text-foreground"
                   >
-                    hello@alexcarter.dev
                   </a>
                 </div>
               </li>
@@ -48,7 +47,7 @@ export default function ContactPage() {
                 <Phone className="mt-0.5 h-4 w-4 text-muted-foreground" />
                 <div>
                   <p className="font-medium">Phone</p>
-                  <p className="text-muted-foreground">+1 (415) 555-0142</p>
+                  <p className="text-muted-foreground">. </p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
@@ -56,7 +55,7 @@ export default function ContactPage() {
                 <div>
                   <p className="font-medium">Location</p>
                   <p className="text-muted-foreground">
-                    San Francisco, CA — open to remote work worldwide
+                    Lusaka, Zambia. Open to work worldwide 
                   </p>
                 </div>
               </li>
@@ -76,15 +75,6 @@ export default function ContactPage() {
                 <Github className="h-5 w-5" />
               </a>
               <a
-                href="https://linkedin.com"
-                aria-label="LinkedIn"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-lg border border-border/60 text-muted-foreground transition-colors hover:border-border hover:text-foreground"
-              >
-                <Linkedin className="h-5 w-5" />
-              </a>
-              <a
                 href="https://twitter.com"
                 aria-label="Twitter"
                 target="_blank"
@@ -95,7 +85,7 @@ export default function ContactPage() {
               </a>
             </div>
             <p className="mt-4 text-xs text-muted-foreground">
-              Typical response time: under 24 hours on weekdays.
+              Typical response time: under 24 hours.
             </p>
           </div>
         </div>
