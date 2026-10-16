@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Loader2, Lock } from 'lucide-react'
@@ -16,7 +15,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { toast } from 'sonner'
 import { useForm, SubmitHandler } from 'react-hook-form';
 import z from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
