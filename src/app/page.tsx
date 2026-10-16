@@ -41,22 +41,8 @@ export default async function HomePage() {
               <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
                 Hi, I'm Perry,
               </h1>
-              <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-                I design and build web applications end-to-end — from the
-                database schema to the last pixel of the UI. For the past
-                seven years I&rsquo;ve shipped products used by tens of
-                thousands of people, and I care obsessively about clean
-                abstractions, accessibility, and shipping things that actually
-                work in production, not just in demos.
-
-                I
-              </p>
-              <p className="mt-4 max-w-xl text-base text-muted-foreground">
-                Right now I&rsquo;m focused on the Next.js + TypeScript +
-                Prisma stack, building tools that help small teams move fast
-                without accumulating technical debt. When I&rsquo;m not at a
-                keyboard you&rsquo;ll find me contributing to open source,
-                mentoring junior devs, or chasing good coffee.
+              <p className="mt-6 max-w-xl text-base text-muted-foreground">
+               I build things for the web. From a blog for your coffee shop to show people how awesome it is to tackling legacy codebases in a team of other great devs I'd love to hear what you've got planned.
               </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -68,16 +54,6 @@ export default async function HomePage() {
                 <Button asChild size="lg" variant="outline">
                   <Link href="/contact">
                     Get in touch <Mail className="ml-1 h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button variant="ghost" size="icon" asChild>
-                  <Link
-                    href="https://github.com"
-                    aria-label="GitHub"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Github className="h-5 w-5" />
                   </Link>
                 </Button>
               </div>
@@ -204,15 +180,7 @@ export default async function HomePage() {
                 Start a conversation <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline">
-              <a
-                href="/resume.pdf"
-                download
-                aria-label="Download resume PDF"
-              >
-                <Download className="h-4 w-4" /> Download CV
-              </a>
-            </Button>
+            
           </div>
         </div>
       </section>

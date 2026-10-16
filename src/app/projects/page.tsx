@@ -14,10 +14,9 @@ export default function ProjectsPage() {
           All projects
         </h1>
         <p className="mt-4 text-base text-muted-foreground">
-          Everything I&rsquo;ve shipped recently — open-source experiments,
-          client work I&rsquo;m allowed to talk about, and the occasional
-          weekend project. This list is loaded live from the backend, so it
-          stays in sync with whatever I&rsquo;ve been working on most recently.
+          Everything I've shipped recently — open-source experiments,
+          client work I'm allowed to talk about, and the occasional
+          weekend project.
         </p>
       </div>
 

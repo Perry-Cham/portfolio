@@ -11,7 +11,7 @@ import { db } from '../src/lib/db'
 import { auth } from '../src/lib/auth'
 
 const ADMIN = {
-  name: 'Alex Carter',
+  name: process.env.NAME,
   email: 'admin@alexcarter.dev',
   password: 'admin123',
 }
