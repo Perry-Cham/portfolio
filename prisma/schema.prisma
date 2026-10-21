@@ -17,13 +17,14 @@ datasource db {
 model User {
   id            String    @id @unique
   name          String
-  email        String    @unique
+  email         String    @unique
   emailVerified Boolean   @default(false)
-  image        String?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  sessions     Session[]
-  accounts     Account[]
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  tokens        Token[]
 }
 
 model Session {
@@ -40,20 +41,20 @@ model Session {
 }
 
 model Account {
-  id                String    @id @unique
-  accountId         String
-  providerId        String
-  userId            String
-  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  accessToken       String?
-  refreshToken      String?
-  idToken           String?
-  accessTokenExpiresAt DateTime?
+  id                    String    @id @unique
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
   refreshTokenExpiresAt DateTime?
-  scope             String?
-  password          String?
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
 }
 
 model Verification {
@@ -70,17 +71,17 @@ model Verification {
 // ---------------------------------------------------------------------------
 
 model Project {
-  id          String   @id @default(cuid())
-  title       String
-  description String
+  id              String   @id @default(cuid())
+  title           String
+  description     String
   longDescription String?
-  imageUrl    String?
-  liveUrl     String?
-  githubUrl   String?
-  tags        String   @default("")
-  featured    Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  imageUrl        String?
+  liveUrl         String?
+  githubUrl       String?
+  tags            String   @default("")
+  featured        Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
 
 model ContactMessage {
@@ -90,6 +91,23 @@ model ContactMessage {
   subject   String
   message   String
   read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Token {
+  type   String @id @unique
+  token  String
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Admin dashboard settings. The `settings` column is a jsonb blob validated
+// with the shared settings schema (src/zodSchemas/settingsSchema.ts).
+model Settings {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  settings  Json     @default("{}")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

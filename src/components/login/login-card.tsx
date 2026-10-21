@@ -1,7 +1,4 @@
 'use client'
-
-import { useRouter, useSearchParams } from 'next/navigation'
-import Link from 'next/link'
 import { Loader2, Lock } from 'lucide-react'
 import { authClient } from '@/lib/auth-client'
 import { Button } from '@/components/ui/button'
@@ -18,17 +15,14 @@ import {
 import { useForm, SubmitHandler } from 'react-hook-form';
 import z from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner'
 
 const loginFormSchema = z.object({
-  username: z
-    .string()
-    .min(3, { message: 'Username must be at least 3 characters long' })
-    .max(20, { message: 'Username cannot exceed 20 characters' }),
   email: z
     .email({ message: 'Invalid email address' }),
   password: z
     .string()
-    .min(8, { message: 'Password must be 8 characters long' })
+    .min(8, { message: 'Password must be at least 8 characters long' })
 });
 
 type loginFormValues = z.infer<typeof loginFormSchema>;
@@ -38,14 +32,17 @@ export default function LoginCard() {
     resolver: zodResolver(loginFormSchema)
   });
 
-  const search = useSearchParams()
 
   async function onSubmit(data: loginFormValues) {
-  const result = authClient.signIn.email({
+    const { error } = await authClient.signIn.email({
       email: data.email,
-      password: data.password
-      
-    });
+      password: data.password,
+      callbackURL: '/admin',
+    })
+
+    if (error) {
+      toast.error(error.message ?? 'Failed to sign in. Please try again.')
+    }
   }
 
   return (
@@ -65,17 +62,27 @@ export default function LoginCard() {
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
+                id="email"
                 {...register('email')}
+                aria-invalid={!!errors.email}
                 placeholder="you@example.com"
               />
+              {errors.email && (
+                <p className="text-xs text-destructive">{errors.email.message}</p>
+              )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <Input
+                id="password"
                 type="password"
                 {...register('password')}
+                aria-invalid={!!errors.password}
                 placeholder="••••••••"
               />
+              {errors.password && (
+                <p className="text-xs text-destructive">{errors.password.message}</p>
+              )}
             </div>
             <Button type="submit" disabled={isSubmitting} className="w-full">
               {isSubmitting ? (

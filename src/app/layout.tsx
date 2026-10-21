@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Alex Carter — Full-Stack Developer",
+  title: "Perry Chamileke",
   description:
     "Portfolio For Perry Chamileke, A Frontend Web Developer with experience in Nextjs, React and Typescript Projects",
   keywords: [

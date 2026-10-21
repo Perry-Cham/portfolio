@@ -159,7 +159,7 @@ export default async function HomePage() {
                 <ProjectCard key={p.id} project={p} />
               ))}
             </div>
-          )}
+          )} 
         </div>
       </section>
 

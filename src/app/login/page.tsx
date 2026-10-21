@@ -5,12 +5,13 @@ export default async function LoginPage() {
     const result = await checkIfFirstAcc();
     return (
     <section>
-        {result ? <SignUpCard /> : <LoginCard />}
+        {result ?<LoginCard />  : <SignUpCard />};
     </section>);
 }
 
 async function checkIfFirstAcc() {
     const accounts = await db.user.count();
+    console.log(accounts)
 
     if (accounts) {
         return true;

@@ -6,9 +6,9 @@ import { z } from 'zod'
 const projectCreateSchema = z.object({
   title: z.string().min(1, 'Title is required').max(120),
   description: z.string().min(1, 'Description is required').max(280),
-  longDescription: z.string().max(2000).optional().nullable(),
-  imageUrl: z.string().url().optional().nullable().or(z.literal('')),
-  liveUrl: z.string().url().optional().nullable().or(z.literal('')),
+  longDescription: z.string().max(2000).optional().nullable().optional(),
+  imageUrl: z.string().url().optional().nullable().or(z.literal('')).optional(),
+  liveUrl: z.string().url().optional().nullable().or(z.literal('')).optional(),
   githubUrl: z.string().url().optional().nullable().or(z.literal('')),
   tags: z.string().max(200).optional(),
   featured: z.boolean().optional(),
@@ -43,6 +43,7 @@ export async function POST(req: NextRequest) {
 
   const parsed = projectCreateSchema.safeParse(body)
   if (!parsed.success) {
+    console.log(typeof body, body)
     return NextResponse.json(
       { error: 'Validation failed', details: parsed.error.flatten() },
       { status: 422 }

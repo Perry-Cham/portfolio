@@ -1,2 +1,5 @@
-input validation on sign up card is non existent
-redirection to admin page does not exist on login card
+- Migrate the database after today's schema changes,
+- Inspect whether the strict schema settings button actually works
+- Produce OpenAPI docuemntation or the API routes. \
+- Implement a script that uses playwright to take screen shots of the websites, 
+- Change the code diagram to an image 

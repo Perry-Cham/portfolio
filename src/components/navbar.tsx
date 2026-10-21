@@ -47,9 +47,6 @@ export function Navbar() {
               {link.label}
             </Link>
           ))}
-          <Button asChild variant="outline" size="sm" className="ml-2">
-            <Link href="/admin">Admin</Link>
-          </Button>
           <ThemeToggle />
         </div>
 

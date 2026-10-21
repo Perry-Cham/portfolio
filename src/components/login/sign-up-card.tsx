@@ -1,6 +1,5 @@
+"use client"
 import z from "zod";
-
-import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Loader2, Lock } from 'lucide-react'
@@ -17,46 +16,47 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { toast } from 'sonner'
-import {useForm, SubmitHandler} from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
-
-const loginFormSchema = z.object({
-  username: z
+const signUpFormSchema = z.object({
+  name: z
     .string()
     .min(3, { message: 'Username must be at least 3 characters long' })
     .max(20, { message: 'Username cannot exceed 20 characters' }),
   email: z
     .string()
     .email({ message: 'Invalid email address' }),
-  age: z
-    .number()
-    .min(18, { message: 'You must be at least 18 years old' })
-    .optional(),
+  password: z
+    .string()
+    .min(8, { message: 'Password must be at least 8 characters long' }),
 });
+
+type SignUpFormValues = z.infer<typeof signUpFormSchema>;
 
 export default function SignUpCard() {
   const router = useRouter()
   const search = useSearchParams()
   const next = search.get('next') ?? '/admin'
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<SignUpFormValues>({
+    resolver: zodResolver(signUpFormSchema),
+  })
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setLoading(true)
-    const { error } = await authClient.signUp({
-        name:
-        email:
-        password
+  async function onSubmit(data: SignUpFormValues) {
+    const { error } = await authClient.signUp.email({
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      callbackURL:"/admin"
     })
-    setLoading(false)
+
     if (error) {
-      toast.error(error.message ?? 'Sign-in failed')
+      toast.error(error.message ?? 'Failed to create account. Please try again.')
       return
     }
-    toast.success('Signed in')
+
+    toast.success('Account created')
     router.push(next)
     router.refresh()
   }
@@ -74,16 +74,19 @@ export default function SignUpCard() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-              <Label htmlFor="email">Username</Label>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Username</Label>
               <Input
                 id="name"
                 type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                {...register('name')}
+                aria-invalid={!!errors.name}
                 placeholder="you@example.com"
               />
+              {errors.name && (
+                <p className="text-xs text-destructive">{errors.name.message}</p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -92,28 +95,34 @@ export default function SignUpCard() {
                 id="email"
                 type="email"
                 autoComplete="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                {...register('email')}
+                aria-invalid={!!errors.email}
                 placeholder="you@example.com"
               />
+              {errors.email && (
+                <p className="text-xs text-destructive">{errors.email.message}</p>
+              )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                {...register('password')}
+                aria-invalid={!!errors.password}
                 placeholder="••••••••"
               />
+              {errors.password && (
+                <p className="text-xs text-destructive">{errors.password.message}</p>
+              )}
             </div>
-            <Button type="submit" disabled={loading} className="w-full">
-              {loading ? (
+            <Button type="submit" disabled={isSubmitting} className="w-full">
+              {isSubmitting ? (
                 <>
-                  <Loader2 className="mr-1 h-4 w-4 animate-spin" /> Signing in…
+                  <Loader2 className="mr-1 h-4 w-4 animate-spin" /> Creating account…
                 </>
               ) : (
-                'Sign in'
+                'Create account'
               )}
             </Button>
           </form>

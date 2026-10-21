@@ -37,7 +37,7 @@ export default function ContactPage() {
                 <div>
                   <p className="font-medium">Email</p>
                   <a
-                    href="mailto:hello@alexcarter.dev"
+                    href={process.env.EMAIL}
                     className="text-muted-foreground hover:text-foreground"
                   >
                   </a>
@@ -66,22 +66,13 @@ export default function ContactPage() {
             <h3 className="mb-4 text-base font-semibold">Elsewhere</h3>
             <div className="flex gap-3">
               <a
-                href="https://github.com"
+                href={process.env.github}
                 aria-label="GitHub"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-10 w-10 items-center justify-center rounded-lg border border-border/60 text-muted-foreground transition-colors hover:border-border hover:text-foreground"
               >
                 <Github className="h-5 w-5" />
-              </a>
-              <a
-                href="https://twitter.com"
-                aria-label="Twitter"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-lg border border-border/60 text-muted-foreground transition-colors hover:border-border hover:text-foreground"
-              >
-                <Twitter className="h-5 w-5" />
               </a>
             </div>
             <p className="mt-4 text-xs text-muted-foreground">
