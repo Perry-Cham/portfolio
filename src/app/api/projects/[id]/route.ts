@@ -42,7 +42,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
   const parsed = projectUpdateSchema.safeParse(body)
   if (!parsed.success) {
     return NextResponse.json(
-      { error: 'Validation failed', details: parsed.error.flatten() },
+      { error: 'Validation failed', details: parsed.error.format() },
       { status: 422 }
     )
   }

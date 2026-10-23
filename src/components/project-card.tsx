@@ -1,8 +1,12 @@
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ExternalLink, Github } from 'lucide-react'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { getMicrolinkImage } from '@/lib/microlink'
 
 export type Project = {
   id: string
@@ -28,17 +32,47 @@ export function ProjectCard({ project }: { project: Project }) {
     month: 'short',
   })
 
+  const [microlinkImage, setMicrolinkImage] = useState<string | null>(null)
+  const [microlinkLoading, setMicrolinkLoading] = useState(false)
+  const fetched = useRef(false)
+
+  // When a liveUrl is present, resolve a preview image via Microlink and use
+  // it as the card image source. Falls back to the stored imageUrl otherwise.
+  useEffect(() => {
+    const liveUrl = project.liveUrl
+    if (!liveUrl || fetched.current) {
+      return
+    }
+    fetched.current = true
+    ;(async () => {
+      setMicrolinkLoading(true)
+      try {
+        const url = await getMicrolinkImage(liveUrl)
+        setMicrolinkImage(url ?? null)
+      } finally {
+        setMicrolinkLoading(false)
+      }
+    })()
+  }, [project.liveUrl])
+
+  const imageSrc = microlinkImage ?? project.imageUrl
+
   return (
-    <Card className="group flex h-full flex-col overflow-hidden p-0 transition-all hover:shadow-lg">
+    <Card className="group flex h-full flex-col overflow-hidden p-0 transition-all hover:shadow-lg pb-4">
       <div className="relative aspect-[16/9] w-full overflow-hidden bg-muted">
-        {project.imageUrl ? (
+        {imageSrc ? (
           <Image
-            src={project.imageUrl}
+            src={imageSrc}
             alt={project.title}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            className="object-cover object-top-right transition-transform duration-300 group-hover:scale-105"
+            unoptimized
           />
+        ) : microlinkLoading ? (
+          <div className="flex h-full w-full items-center justify-center bg-muted">
+            <span className="text-xs text-muted-foreground">Loading preview…</span>
+          </div>
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-muted to-muted-foreground/20">
             <span className="text-sm text-muted-foreground">No preview</span>

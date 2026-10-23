@@ -21,14 +21,6 @@ export default function ProjectsPage() {
       </div>
 
       <ProjectsList />
-
-      <div className="mt-12 text-center">
-        <Button asChild variant="ghost">
-          <Link href="/">
-            <ArrowLeft className="mr-1 h-4 w-4" /> Back home
-          </Link>
-        </Button>
-      </div>
     </div>
   )
 }
