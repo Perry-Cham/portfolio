@@ -1,4 +1,4 @@
-import { Code, Database, Layout, Server, Wrench, Zap, Settings } from 'lucide-react'
+import { Code, Database, Layout, Server, Wrench, Zap, Settings, PersonStanding } from 'lucide-react'
 
 type SkillGroup = {
   icon: React.ReactNode
@@ -26,12 +26,18 @@ const groups: SkillGroup[] = [
     blurb: 'DX and pipelines that keep teams unblocked.',
     items: ['Vite', 'ESLint', 'Vitest', 'Playwright', 'GitHub Actions'],
   },
-/*  {
+    {
+    icon: <PersonStanding className="h-5 w-5" />,
+    title: 'Communication',
+    blurb: 'Getting and Delivering feedback is one of my values. I prefer to communicate regularly over projects',
+    items: [],
+  },
+{
     icon: <Code className="h-5 w-5" />,
     title: 'Languages',
     blurb: 'I pick whatever tool I need for the job',
     items: ['TypeScript',  'Dart'],
-  },*/
+  },
 ]
 
 export function SkillsSection() {

@@ -1,6 +1,3 @@
-import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import { ProjectsList } from '@/components/projects-list'
 
 export default function ProjectsPage() {
@@ -14,9 +11,7 @@ export default function ProjectsPage() {
           All projects
         </h1>
         <p className="mt-4 text-base text-muted-foreground">
-          Everything I've shipped recently — open-source experiments,
-          client work I'm allowed to talk about, and the occasional
-          weekend project.
+          Everything I've shipped recently — experiments, hobby projects and learning experiences. Take a look and feel free to ask questions about any of them.
         </p>
       </div>
 

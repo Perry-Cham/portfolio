@@ -7,6 +7,7 @@ import { ExternalLink, Github } from 'lucide-react'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { getMicrolinkImage } from '@/lib/microlink'
+import { Button } from './ui/button'
 
 export type Project = {
   id: string
@@ -18,8 +19,8 @@ export type Project = {
   githubUrl: string | null
   tags: string
   featured: boolean
-  createdAt: string
-  updatedAt: string
+  createdAt: Date
+  updatedAt: Date
 }
 
 export function ProjectCard({ project }: { project: Project }) {
@@ -44,15 +45,15 @@ export function ProjectCard({ project }: { project: Project }) {
       return
     }
     fetched.current = true
-    ;(async () => {
-      setMicrolinkLoading(true)
-      try {
-        const url = await getMicrolinkImage(liveUrl)
-        setMicrolinkImage(url ?? null)
-      } finally {
-        setMicrolinkLoading(false)
-      }
-    })()
+      ; (async () => {
+        setMicrolinkLoading(true)
+        try {
+          const url = await getMicrolinkImage(liveUrl)
+          setMicrolinkImage(url ?? null)
+        } finally {
+          setMicrolinkLoading(false)
+        }
+      })()
   }, [project.liveUrl])
 
   const imageSrc = microlinkImage ?? project.imageUrl
@@ -111,14 +112,17 @@ export function ProjectCard({ project }: { project: Project }) {
 
       <CardFooter className="flex gap-2 pt-0">
         {project.liveUrl && (
-          <Link
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:underline"
-          >
-            <ExternalLink className="h-4 w-4" /> Live
-          </Link>
+          <Button asChild>
+            <Link
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:underline"
+            >
+              <ExternalLink className="h-4 w-4" /> Live
+            </Link>
+
+          </Button>
         )}
         {project.githubUrl && (
           <Link
@@ -127,7 +131,7 @@ export function ProjectCard({ project }: { project: Project }) {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:underline"
           >
-            <Github className="h-4 w-4" /> Code
+            <Github className="h-4 w-4" /> Source
           </Link>
         )}
       </CardFooter>
