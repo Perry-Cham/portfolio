@@ -1,9 +1,9 @@
-'use client'
-import { Loader2, Lock } from 'lucide-react'
-import { authClient } from '@/lib/auth-client'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+'use client';
+import { Loader2, Lock } from 'lucide-react';
+import { authClient } from '@/lib/auth-client';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Card,
   CardContent,
@@ -11,37 +11,39 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
+} from '@/components/ui/card';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import z from "zod";
+import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { toast } from 'sonner'
+import { toast } from 'sonner';
 
 const loginFormSchema = z.object({
-  email: z
-    .email({ message: 'Invalid email address' }),
+  email: z.email({ message: 'Invalid email address' }),
   password: z
     .string()
-    .min(8, { message: 'Password must be at least 8 characters long' })
+    .min(8, { message: 'Password must be at least 8 characters long' }),
 });
 
 type loginFormValues = z.infer<typeof loginFormSchema>;
 
 export default function LoginCard() {
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<loginFormValues>({
-    resolver: zodResolver(loginFormSchema)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<loginFormValues>({
+    resolver: zodResolver(loginFormSchema),
   });
-
 
   async function onSubmit(data: loginFormValues) {
     const { error } = await authClient.signIn.email({
       email: data.email,
       password: data.password,
       callbackURL: '/admin',
-    })
+    });
 
     if (error) {
-      toast.error(error.message ?? 'Failed to sign in. Please try again.')
+      toast.error(error.message ?? 'Failed to sign in. Please try again.');
     }
   }
 
@@ -68,7 +70,9 @@ export default function LoginCard() {
                 placeholder="you@example.com"
               />
               {errors.email && (
-                <p className="text-xs text-destructive">{errors.email.message}</p>
+                <p className="text-xs text-destructive">
+                  {errors.email.message}
+                </p>
               )}
             </div>
             <div className="space-y-2">
@@ -81,7 +85,9 @@ export default function LoginCard() {
                 placeholder="••••••••"
               />
               {errors.password && (
-                <p className="text-xs text-destructive">{errors.password.message}</p>
+                <p className="text-xs text-destructive">
+                  {errors.password.message}
+                </p>
               )}
             </div>
             <Button type="submit" disabled={isSubmitting} className="w-full">
@@ -97,5 +103,5 @@ export default function LoginCard() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

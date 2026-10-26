@@ -1,97 +1,100 @@
-'use client'
+'use client';
 
-import { useMemo, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { ProjectCard } from '@/components/project-card'
-import { Skeleton } from '@/components/ui/skeleton'
-import { Button } from '@/components/ui/button'
+import { useMemo, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { ProjectCard } from '@/components/projects/project-card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
 import {
   DEFAULT_PROJECT_SORT,
   FilterMenu,
   ProjectFilters,
   ProjectSort,
-} from './projects_page/filter-menu'
+} from './filter-menu';
 
-type Project = React.ComponentProps<typeof ProjectCard>['project']
+type Project = React.ComponentProps<typeof ProjectCard>['project'];
 
 async function fetchProjects(): Promise<Project[]> {
-  const res = await fetch('/api/projects', { cache: 'no-store' })
-  if (!res.ok) throw new Error('Failed to load projects')
-  const data = await res.json()
-  return data.projects as Project[]
+  const res = await fetch('/api/projects', { cache: 'no-store' });
+  if (!res.ok) throw new Error('Failed to load projects');
+  const data = await res.json();
+  return data.projects as Project[];
 }
 
 function getProjectTags(project: Project): string[] {
-  if (!project.tags) return []
+  if (!project.tags) return [];
   return project.tags
     .split(',')
     .map((tag) => tag.trim())
-    .filter(Boolean)
+    .filter(Boolean);
 }
 
 function sortProjects(projects: Project[], sort: ProjectSort): Project[] {
-  const sorted = [...projects]
+  const sorted = [...projects];
 
   switch (sort) {
     case 'name-asc':
-      return sorted.sort((a, b) => a.title.localeCompare(b.title))
+      return sorted.sort((a, b) => a.title.localeCompare(b.title));
     case 'name-desc':
-      return sorted.sort((a, b) => b.title.localeCompare(a.title))
+      return sorted.sort((a, b) => b.title.localeCompare(a.title));
     case 'date-asc':
       return sorted.sort(
-        (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-      )
+        (a, b) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+      );
     case 'date-desc':
       return sorted.sort(
-        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      )
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
     case 'featured':
       // Featured projects first, everything else by name descending.
       return sorted.sort(
         (a, b) =>
-          Number(b.featured) - Number(a.featured) || b.title.localeCompare(a.title)
-      )
+          Number(b.featured) - Number(a.featured) ||
+          b.title.localeCompare(a.title)
+      );
   }
 
-  return sorted
+  return sorted;
 }
 
 export function ProjectsList() {
   const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ['projects'],
     queryFn: fetchProjects,
-  })
+  });
 
   const [filters, setFilters] = useState<ProjectFilters>({
     sort: DEFAULT_PROJECT_SORT,
     tags: [],
-  })
+  });
 
-  const { sort, tags: selectedTags } = filters
+  const { sort, tags: selectedTags } = filters;
 
   const availableTags = useMemo(() => {
-    const tags = new Set<string>()
+    const tags = new Set<string>();
     for (const project of data ?? []) {
       for (const tag of getProjectTags(project)) {
-        tags.add(tag)
+        tags.add(tag);
       }
     }
-    return Array.from(tags).sort((a, b) => a.localeCompare(b))
-  }, [data])
+    return Array.from(tags).sort((a, b) => a.localeCompare(b));
+  }, [data]);
 
   const projects = useMemo(() => {
-    if (!data) return []
-    const sorted = sortProjects(data, sort)
-    if (selectedTags.length === 0) return sorted
+    if (!data) return [];
+    const sorted = sortProjects(data, sort);
+    if (selectedTags.length === 0) return sorted;
     return sorted.filter((project) =>
       selectedTags.some((tag) => getProjectTags(project).includes(tag))
-    )
-  }, [data, sort, selectedTags])
+    );
+  }, [data, sort, selectedTags]);
 
-  const isFiltering = sort !== DEFAULT_PROJECT_SORT || selectedTags.length > 0
+  const isFiltering = sort !== DEFAULT_PROJECT_SORT || selectedTags.length > 0;
 
   function handleClearFilters() {
-    setFilters({ sort: DEFAULT_PROJECT_SORT, tags: [] })
+    setFilters({ sort: DEFAULT_PROJECT_SORT, tags: [] });
   }
 
   if (isLoading) {
@@ -115,7 +118,7 @@ export function ProjectsList() {
           </div>
         ))}
       </div>
-    )
+    );
   }
 
   if (isError) {
@@ -131,7 +134,7 @@ export function ProjectsList() {
           Try again
         </button>
       </div>
-    )
+    );
   }
 
   if (!data || data.length === 0) {
@@ -141,7 +144,7 @@ export function ProjectsList() {
           No projects published yet. Check back soon.
         </p>
       </div>
-    )
+    );
   }
 
   return (
@@ -186,5 +189,5 @@ export function ProjectsList() {
         </div>
       )}
     </section>
-  )
+  );
 }

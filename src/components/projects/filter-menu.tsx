@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import { SlidersHorizontal } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+import { SlidersHorizontal } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -14,21 +14,17 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from '@/components/ui/dropdown-menu';
 
 export type ProjectSort =
-  | 'featured'
-  | 'name-asc'
-  | 'name-desc'
-  | 'date-asc'
-  | 'date-desc'
+  'featured' | 'name-asc' | 'name-desc' | 'date-asc' | 'date-desc';
 
 export type ProjectFilters = {
-  sort: ProjectSort
-  tags: string[]
-}
+  sort: ProjectSort;
+  tags: string[];
+};
 
-export const DEFAULT_PROJECT_SORT: ProjectSort = 'featured'
+export const DEFAULT_PROJECT_SORT: ProjectSort = 'featured';
 
 export const SORT_OPTIONS: { value: ProjectSort; label: string }[] = [
   { value: 'featured', label: 'Default' },
@@ -36,15 +32,15 @@ export const SORT_OPTIONS: { value: ProjectSort; label: string }[] = [
   { value: 'name-desc', label: 'Name (desc)' },
   { value: 'date-asc', label: 'Date (asc)' },
   { value: 'date-desc', label: 'Date (desc)' },
-]
+];
 
 type FilterMenuProps = {
-  sort: ProjectSort
-  onSortChange: (sort: ProjectSort) => void
-  availableTags: string[]
-  selectedTags: string[]
-  onSelectedTagsChange: (tags: string[]) => void
-}
+  sort: ProjectSort;
+  onSortChange: (sort: ProjectSort) => void;
+  availableTags: string[];
+  selectedTags: string[];
+  onSelectedTagsChange: (tags: string[]) => void;
+};
 
 export function FilterMenu({
   sort,
@@ -53,21 +49,21 @@ export function FilterMenu({
   selectedTags,
   onSelectedTagsChange,
 }: FilterMenuProps) {
-  const isDefaultSort = sort === 'featured'
-  const hasActiveFilters = !isDefaultSort || selectedTags.length > 0
-  const activeFilterCount = (isDefaultSort ? 0 : 1) + selectedTags.length
+  const isDefaultSort = sort === 'featured';
+  const hasActiveFilters = !isDefaultSort || selectedTags.length > 0;
+  const activeFilterCount = (isDefaultSort ? 0 : 1) + selectedTags.length;
 
   function handleTagToggle(tag: string, checked: boolean) {
     onSelectedTagsChange(
       checked
         ? [...selectedTags, tag].sort((a, b) => a.localeCompare(b))
         : selectedTags.filter((t) => t !== tag)
-    )
+    );
   }
 
   function handleClearFilters() {
-    onSortChange('featured')
-    onSelectedTagsChange([])
+    onSortChange('featured');
+    onSelectedTagsChange([]);
   }
 
   return (
@@ -121,10 +117,12 @@ export function FilterMenu({
         {hasActiveFilters && (
           <>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleClearFilters}>Clear filters</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleClearFilters}>
+              Clear filters
+            </DropdownMenuItem>
           </>
         )}
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

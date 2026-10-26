@@ -1,4 +1,4 @@
-import { ProjectsList } from '@/components/projects-list'
+import { ProjectsList } from '@/components/projects/projects-list';
 
 export default function ProjectsPage() {
   return (
@@ -11,11 +11,13 @@ export default function ProjectsPage() {
           All projects
         </h1>
         <p className="mt-4 text-base text-muted-foreground">
-          Everything I've shipped recently — experiments, hobby projects and learning experiences. Take a look and feel free to ask questions about any of them.
+          Everything I've shipped recently — experiments, hobby projects and
+          learning experiences. Take a look and feel free to ask questions about
+          any of them.
         </p>
       </div>
 
       <ProjectsList />
     </div>
-  )
+  );
 }

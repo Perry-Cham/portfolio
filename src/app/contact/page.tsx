@@ -1,5 +1,5 @@
-import { Mail, MapPin, Phone, Github, Linkedin, Twitter } from 'lucide-react'
-import { ContactForm } from '@/components/contact-form'
+import { Mail, MapPin, Phone, Github, Linkedin, Twitter } from 'lucide-react';
+import { ContactForm } from '@/components/contact/contact-form';
 
 export default function ContactPage() {
   return (
@@ -22,8 +22,8 @@ export default function ContactPage() {
         <div className="rounded-xl border border-border/60 bg-card p-6 sm:p-8">
           <h2 className="mb-1 text-xl font-semibold">Send me a message</h2>
           <p className="mb-6 text-sm text-muted-foreground">
-            Fields marked with{' '}
-            <span className="text-destructive">*</span> are required.
+            Fields marked with <span className="text-destructive">*</span> are
+            required.
           </p>
           <ContactForm />
         </div>
@@ -39,8 +39,7 @@ export default function ContactPage() {
                   <a
                     href={process.env.EMAIL}
                     className="text-muted-foreground hover:text-foreground"
-                  >
-                  </a>
+                  ></a>
                 </div>
               </li>
               <li className="flex items-start gap-3">
@@ -55,7 +54,7 @@ export default function ContactPage() {
                 <div>
                   <p className="font-medium">Location</p>
                   <p className="text-muted-foreground">
-                    Lusaka, Zambia. Open to work worldwide 
+                    Lusaka, Zambia. Open to work worldwide
                   </p>
                 </div>
               </li>
@@ -82,5 +81,5 @@ export default function ContactPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

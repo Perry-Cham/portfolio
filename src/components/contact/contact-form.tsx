@@ -1,69 +1,65 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { Send } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Label } from '@/components/ui/label'
-import { toast } from 'sonner'
+import { useState } from 'react';
+import { Send } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { toast } from 'sonner';
 
 type FieldErrors = {
-  name?: string[]
-  email?: string[]
-  subject?: string[]
-  message?: string[]
-}
+  name?: string[];
+  email?: string[];
+  subject?: string[];
+  message?: string[];
+};
 
 export function ContactForm() {
-  const [submitting, setSubmitting] = useState(false)
-  const [errors, setErrors] = useState<FieldErrors>({})
+  const [submitting, setSubmitting] = useState(false);
+  const [errors, setErrors] = useState<FieldErrors>({});
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setSubmitting(true)
-    setErrors({})
+    e.preventDefault();
+    setSubmitting(true);
+    setErrors({});
 
-    const form = e.currentTarget
-    const data = new FormData(form)
+    const form = e.currentTarget;
+    const data = new FormData(form);
     const payload = {
       name: data.get('name'),
       email: data.get('email'),
       subject: data.get('subject'),
       message: data.get('message'),
-    }
+    };
 
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
-      })
+      });
 
-      const json = await res.json()
+      const json = await res.json();
       if (!res.ok) {
         if (json?.details?.fieldErrors) {
-          setErrors(json.details.fieldErrors as FieldErrors)
+          setErrors(json.details.fieldErrors as FieldErrors);
         }
-        toast.error(json?.error ?? 'Failed to send message')
-        return
+        toast.error(json?.error ?? 'Failed to send message');
+        return;
       }
 
-      toast.success('Thanks! Your message has been sent.')
-      form.reset()
+      toast.success('Thanks! Your message has been sent.');
+      form.reset();
     } catch {
-      toast.error('Network error — please try again later.')
+      toast.error('Network error — please try again later.');
     } finally {
-      setSubmitting(false)
+      setSubmitting(false);
     }
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="space-y-5"
-      noValidate
-    >
+    <form onSubmit={handleSubmit} className="space-y-5" noValidate>
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="name">Name</Label>
@@ -133,5 +129,5 @@ export function ContactForm() {
         )}
       </Button>
     </form>
-  )
+  );
 }

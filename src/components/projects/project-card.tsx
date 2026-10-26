@@ -1,62 +1,70 @@
-'use client'
+'use client';
 
-import { useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { ExternalLink, Github } from 'lucide-react'
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { getMicrolinkImage } from '@/lib/microlink'
-import { Button } from './ui/button'
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ExternalLink, Github } from 'lucide-react';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { getMicrolinkImage } from '@/lib/microlink';
+import { Button } from '@/components/ui/button';
 
 export type Project = {
-  id: string
-  title: string
-  description: string
-  longDescription: string | null
-  imageUrl: string | null
-  liveUrl: string | null
-  githubUrl: string | null
-  tags: string
-  featured: boolean
-  createdAt: Date
-  updatedAt: Date
-}
+  id: string;
+  title: string;
+  description: string;
+  longDescription: string | null;
+  imageUrl: string | null;
+  liveUrl: string | null;
+  githubUrl: string | null;
+  tags: string;
+  featured: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+};
 
 export function ProjectCard({ project }: { project: Project }) {
   const tagList = project.tags
-    ? project.tags.split(',').map((t) => t.trim()).filter(Boolean)
-    : []
+    ? project.tags
+        .split(',')
+        .map((t) => t.trim())
+        .filter(Boolean)
+    : [];
 
   const date = new Date(project.createdAt).toLocaleDateString(undefined, {
     year: 'numeric',
     month: 'short',
-  })
+  });
 
-  const [microlinkImage, setMicrolinkImage] = useState<string | null>(null)
-  const [microlinkLoading, setMicrolinkLoading] = useState(false)
-  const fetched = useRef(false)
+  const [microlinkImage, setMicrolinkImage] = useState<string | null>(null);
+  const [microlinkLoading, setMicrolinkLoading] = useState(false);
+  const fetched = useRef(false);
 
   // When a liveUrl is present, resolve a preview image via Microlink and use
   // it as the card image source. Falls back to the stored imageUrl otherwise.
   useEffect(() => {
-    const liveUrl = project.liveUrl
+    const liveUrl = project.liveUrl;
     if (!liveUrl || fetched.current) {
-      return
+      return;
     }
-    fetched.current = true
-      ; (async () => {
-        setMicrolinkLoading(true)
-        try {
-          const url = await getMicrolinkImage(liveUrl)
-          setMicrolinkImage(url ?? null)
-        } finally {
-          setMicrolinkLoading(false)
-        }
-      })()
-  }, [project.liveUrl])
+    fetched.current = true;
+    (async () => {
+      setMicrolinkLoading(true);
+      try {
+        const url = await getMicrolinkImage(liveUrl);
+        setMicrolinkImage(url ?? null);
+      } finally {
+        setMicrolinkLoading(false);
+      }
+    })();
+  }, [project.liveUrl]);
 
-  const imageSrc = microlinkImage ?? project.imageUrl
+  const imageSrc = microlinkImage ?? project.imageUrl;
 
   return (
     <Card className="group flex h-full flex-col overflow-hidden p-0 transition-all hover:shadow-lg pb-4">
@@ -72,7 +80,9 @@ export function ProjectCard({ project }: { project: Project }) {
           />
         ) : microlinkLoading ? (
           <div className="flex h-full w-full items-center justify-center bg-muted">
-            <span className="text-xs text-muted-foreground">Loading preview…</span>
+            <span className="text-xs text-muted-foreground">
+              Loading preview…
+            </span>
           </div>
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-muted to-muted-foreground/20">
@@ -121,7 +131,6 @@ export function ProjectCard({ project }: { project: Project }) {
             >
               <ExternalLink className="h-4 w-4" /> Live
             </Link>
-
           </Button>
         )}
         {project.githubUrl && (
@@ -136,5 +145,5 @@ export function ProjectCard({ project }: { project: Project }) {
         )}
       </CardFooter>
     </Card>
-  )
+  );
 }

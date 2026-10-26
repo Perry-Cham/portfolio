@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 /**
  * Settings for the admin dashboard.
@@ -17,19 +17,19 @@ export const settingsSchema = z.object({
    * repository that fails validation is flagged in the import review modal.
    */
   strictDescriptions: z.boolean().default(false),
-})
+});
 
-export type AppSettings = z.infer<typeof settingsSchema>
+export type AppSettings = z.infer<typeof settingsSchema>;
 
 export const DEFAULT_SETTINGS: AppSettings = {
   strictDescriptions: false,
-}
+};
 
 /**
  * Parses an unknown value into settings, falling back to the defaults when the
  * stored value is missing or malformed.
  */
 export function parseSettings(value: unknown): AppSettings {
-  const parsed = settingsSchema.safeParse(value ?? {})
-  return parsed.success ? parsed.data : DEFAULT_SETTINGS
+  const parsed = settingsSchema.safeParse(value ?? {});
+  return parsed.success ? parsed.data : DEFAULT_SETTINGS;
 }

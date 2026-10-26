@@ -1,11 +1,20 @@
-import { Code, Database, Layout, Server, Wrench, Zap, Settings, PersonStanding } from 'lucide-react'
+import {
+  Code,
+  Database,
+  Layout,
+  Server,
+  Wrench,
+  Zap,
+  Settings,
+  PersonStanding,
+} from 'lucide-react';
 
 type SkillGroup = {
-  icon: React.ReactNode
-  title: string
-  blurb: string
-  items: string[]
-}
+  icon: React.ReactNode;
+  title: string;
+  blurb: string;
+  items: string[];
+};
 
 const groups: SkillGroup[] = [
   {
@@ -26,19 +35,20 @@ const groups: SkillGroup[] = [
     blurb: 'DX and pipelines that keep teams unblocked.',
     items: ['Vite', 'ESLint', 'Vitest', 'Playwright', 'GitHub Actions'],
   },
-    {
+  {
     icon: <PersonStanding className="h-5 w-5" />,
     title: 'Communication',
-    blurb: 'Getting and Delivering feedback is one of my values. I prefer to communicate regularly over projects',
+    blurb:
+      'Getting and Delivering feedback is one of my values. I prefer to communicate regularly over projects',
     items: [],
   },
-{
+  {
     icon: <Code className="h-5 w-5" />,
     title: 'Languages',
     blurb: 'I pick whatever tool I need for the job',
-    items: ['TypeScript',  'Dart'],
+    items: ['TypeScript', 'Dart'],
   },
-]
+];
 
 export function SkillsSection() {
   return (
@@ -52,9 +62,10 @@ export function SkillsSection() {
             Skills & tools
           </h2>
           <p className="mt-4 text-base text-muted-foreground">
-            I've spent the last few years broadening my horizons with different tools. These are the technologies I reach for daily —
-            picked because they make me faster, the code clearer, and the
-            product better, not because they happen to be trendy this week.
+            I've spent the last few years broadening my horizons with different
+            tools. These are the technologies I reach for daily — picked because
+            they make me faster, the code clearer, and the product better, not
+            because they happen to be trendy this week.
           </p>
         </div>
 
@@ -88,5 +99,5 @@ export function SkillsSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

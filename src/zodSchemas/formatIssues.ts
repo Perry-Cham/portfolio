@@ -1,49 +1,51 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 export type FieldIssue = {
   /** Dotted path of the offending field, e.g. "description" */
-  path: string
+  path: string;
   /** Human readable description of what is wrong with the field */
-  message: string
-}
+  message: string;
+};
 
 export type FormattedIssues = {
   /** Every offending field with its message */
-  errors: FieldIssue[]
+  errors: FieldIssue[];
   /** Number of errors found */
-  count: number
-}
+  count: number;
+};
 
 export type BulkIssue = {
   /** Index of the offending item inside the validated array */
-  index: number
+  index: number;
   /** Every offending field of that item */
-  errors: FieldIssue[]
+  errors: FieldIssue[];
   /** Number of errors found for that item */
-  count: number
-}
+  count: number;
+};
 
 type RawIssue = {
-  segments: string[]
-  message: string
-}
+  segments: string[];
+  message: string;
+};
 
 /**
  * Walks the object returned by `z.formatError` and collects every message
  * together with the path it belongs to.
  */
 function collectRaw(formatted: unknown, segments: string[], out: RawIssue[]) {
-  if (!formatted || typeof formatted !== 'object') return
+  if (!formatted || typeof formatted !== 'object') return;
 
-  for (const [key, value] of Object.entries(formatted as Record<string, unknown>)) {
+  for (const [key, value] of Object.entries(
+    formatted as Record<string, unknown>
+  )) {
     if (key === '_errors') {
-      const messages = Array.isArray(value) ? value : []
+      const messages = Array.isArray(value) ? value : [];
       for (const message of messages) {
-        out.push({ segments, message: String(message) })
+        out.push({ segments, message: String(message) });
       }
-      continue
+      continue;
     }
-    collectRaw(value, [...segments, key], out)
+    collectRaw(value, [...segments, key], out);
   }
 }
 
@@ -55,15 +57,15 @@ function collectRaw(formatted: unknown, segments: string[], out: RawIssue[]) {
  * of that array.
  */
 export function formatIssues(error: z.ZodError): FormattedIssues {
-  const raw: RawIssue[] = []
-  collectRaw(z.formatError(error), [], raw)
+  const raw: RawIssue[] = [];
+  collectRaw(z.formatError(error), [], raw);
 
   const errors: FieldIssue[] = raw.map((issue) => ({
     path: issue.segments.join('.') || 'value',
     message: issue.message,
-  }))
+  }));
 
-  return { errors, count: errors.length }
+  return { errors, count: errors.length };
 }
 
 /**
@@ -71,22 +73,22 @@ export function formatIssues(error: z.ZodError): FormattedIssues {
  * grouped per item using the index they were found at.
  */
 export function formatBulkIssues(error: z.ZodError): BulkIssue[] {
-  const raw: RawIssue[] = []
-  collectRaw(z.formatError(error), [], raw)
+  const raw: RawIssue[] = [];
+  collectRaw(z.formatError(error), [], raw);
 
-  const grouped = new Map<number, FieldIssue[]>()
+  const grouped = new Map<number, FieldIssue[]>();
 
   for (const issue of raw) {
-    const [head, ...rest] = issue.segments
-    const index = Number(head)
-    if (!Number.isInteger(index)) continue
+    const [head, ...rest] = issue.segments;
+    const index = Number(head);
+    if (!Number.isInteger(index)) continue;
 
-    const list = grouped.get(index) ?? []
-    list.push({ path: rest.join('.') || 'value', message: issue.message })
-    grouped.set(index, list)
+    const list = grouped.get(index) ?? [];
+    list.push({ path: rest.join('.') || 'value', message: issue.message });
+    grouped.set(index, list);
   }
 
   return [...grouped.entries()]
     .sort((a, b) => a[0] - b[0])
-    .map(([index, errors]) => ({ index, errors, count: errors.length }))
+    .map(([index, errors]) => ({ index, errors, count: errors.length }));
 }

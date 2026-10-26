@@ -1,21 +1,21 @@
-import Link from 'next/link'
-import { db } from '@/lib/db'
-import { ArrowRight, Download, Github, Linkedin, Mail } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { SkillsSection } from '@/components/skills-section'
-import { ProjectCard } from '@/components/project-card'
-import { TypingAnimation } from '@/components/ui/typing-animation'
+import Link from 'next/link';
+import { db } from '@/lib/db';
+import { ArrowRight, Download, Github, Linkedin, Mail } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { SkillsSection } from '@/components/home/skills-section';
+import { ProjectCard } from '@/components/projects/project-card';
+import { TypingAnimation } from '@/components/home/typing-animation';
 
 async function getLatestProjects() {
   const projects = await db.project.findMany({
     orderBy: { createdAt: 'desc' },
     take: 3,
-  })
-  return projects
+  });
+  return projects;
 }
 
 export default async function HomePage() {
-  const latest = await getLatestProjects()
+  const latest = await getLatestProjects();
 
   return (
     <>
@@ -40,10 +40,15 @@ export default async function HomePage() {
                 Available for freelance work
               </p>
               <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-                <TypingAnimation words={["Hi, I'm Perry", "What are we doing today?"]}></TypingAnimation>
+                <TypingAnimation
+                  words={["Hi, I'm Perry", 'What are we doing today?']}
+                ></TypingAnimation>
               </h1>
               <p className="mt-6 max-w-xl text-base text-muted-foreground">
-               I build things for the web. From a blog for your coffee shop to show people how awesome it is to tackling legacy codebases in a team of other great devs I'd love to hear what you've got planned.
+                I build things for the web. From a blog for your coffee shop to
+                show people how awesome it is to tackling legacy codebases in a
+                team of other great devs I'd love to hear what you've got
+                planned.
               </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -107,9 +112,18 @@ export default async function HomePage() {
           </div>
           <div className="space-y-4 text-base text-muted-foreground lg:col-span-2">
             <p>
-              I'm a self-taught developer who started programming back in 2020 out of an interest in apps games and generally all things tech. I love building projects and bringing visions to life whther my own or for a client and I'm always looking for people to network with.
+              I'm a self-taught developer who started programming back in 2020
+              out of an interest in apps games and generally all things tech. I
+              love building projects and bringing visions to life whther my own
+              or for a client and I'm always looking for people to network with.
             </p>
-            <p>I love working with Nextjs and react for my projects though in recent times I've started to dabble in flutter for cross platform applications as well. I have to say its been quite long journey since those first few weeks staring at a screen learning javascript and I'd be grateful if you became a part of it.</p>
+            <p>
+              I love working with Nextjs and react for my projects though in
+              recent times I've started to dabble in flutter for cross platform
+              applications as well. I have to say its been quite long journey
+              since those first few weeks staring at a screen learning
+              javascript and I'd be grateful if you became a part of it.
+            </p>
           </div>
         </div>
       </section>
@@ -129,8 +143,8 @@ export default async function HomePage() {
                 Latest projects
               </h2>
               <p className="mt-4 text-base text-muted-foreground">
-                A few things projects I've worked on recently. The full list lives
-                on the projects page.
+                A few things projects I've worked on recently. The full list
+                lives on the projects page.
               </p>
             </div>
             <Button asChild variant="outline" size="lg">
@@ -152,7 +166,7 @@ export default async function HomePage() {
                 <ProjectCard key={p.id} project={p} />
               ))}
             </div>
-          )} 
+          )}
         </div>
       </section>
 
@@ -163,9 +177,8 @@ export default async function HomePage() {
             Have a project in mind?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground">
-            Whether it's a greenfield idea, a legacy codebase that needs
-            taming, or an extra pair of hands for a sprint — I'ed love to
-            hear about it.
+            Whether it's a greenfield idea, a legacy codebase that needs taming,
+            or an extra pair of hands for a sprint — I'ed love to hear about it.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Button asChild size="lg">
@@ -173,10 +186,9 @@ export default async function HomePage() {
                 Start a conversation <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
             </Button>
-            
           </div>
         </div>
       </section>
     </>
-  )
+  );
 }

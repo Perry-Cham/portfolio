@@ -1,42 +1,41 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import { QueryProvider } from "@/components/query-provider";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
-import { Toaster as SonnerToaster } from "@/components/ui/sonner";
-import { Toaster } from "@/components/ui/toaster";
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import './globals.css';
+import { ThemeProvider } from '@/components/theme-provider';
+import { QueryProvider } from '@/components/query-provider';
+import { Navbar } from '@/components/navbar';
+import { Footer } from '@/components/footer';
+import { Toaster as SonnerToaster } from '@/components/ui/sonner';
+import { Toaster } from '@/components/ui/toaster';
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-  title: "Perry Chamileke",
+  title: 'Perry Chamileke',
   description:
-    "Portfolio For Perry Chamileke, A Frontend Web Developer with experience in Nextjs, React and Typescript Projects",
+    'Portfolio For Perry Chamileke, A Frontend Web Developer with experience in Nextjs, React and Typescript Projects',
   keywords: [
-    "Perry Chamileke",
-    "Next.js",
-    "TypeScript",
-    "React",
-    "Node.js",
-    "portfolio",
+    'Perry Chamileke',
+    'Next.js',
+    'TypeScript',
+    'React',
+    'Node.js',
+    'portfolio',
   ],
-  authors: [{ name: "Perry Chamileke" }],
+  authors: [{ name: 'Perry Chamileke' }],
   openGraph: {
-    title: "Perry Chamileke - Frontend Web Developer",
-    description:
-      "Frontend Web Developer and Tech Enthuisiast",
-    siteName: "Perry Chamileke",
-    type: "website",
+    title: 'Perry Chamileke - Frontend Web Developer',
+    description: 'Frontend Web Developer and Tech Enthuisiast',
+    siteName: 'Perry Chamileke',
+    type: 'website',
   },
 };
 
