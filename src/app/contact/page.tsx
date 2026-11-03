@@ -9,11 +9,11 @@ export default function ContactPage() {
           Get in touch
         </p>
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-          Let&rsquo;s build something.
+          Let's build something.
         </h1>
         <p className="mt-4 text-base text-muted-foreground">
           Tell me about your project, your team, or the thing you wish existed
-          but doesn&rsquo;t yet. I read every message myself and reply within a
+          but doesn't yet. I read every message myself and reply within a
           day or two.
         </p>
       </div>
@@ -37,16 +37,16 @@ export default function ContactPage() {
                 <div>
                   <p className="font-medium">Email</p>
                   <a
-                    href={process.env.EMAIL}
+                    href={`mailto:${process.env.EMAIL}`}
                     className="text-muted-foreground hover:text-foreground"
-                  ></a>
+                  >{process.env.EMAIL}</a>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <Phone className="mt-0.5 h-4 w-4 text-muted-foreground" />
                 <div>
                   <p className="font-medium">Phone</p>
-                  <p className="text-muted-foreground">. </p>
+                  <p className="text-muted-foreground">{process.env.PHONE}</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
@@ -65,7 +65,7 @@ export default function ContactPage() {
             <h3 className="mb-4 text-base font-semibold">Elsewhere</h3>
             <div className="flex gap-3">
               <a
-                href={process.env.github}
+                href={process.env.GITHUB}
                 aria-label="GitHub"
                 target="_blank"
                 rel="noopener noreferrer"

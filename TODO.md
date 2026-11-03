@@ -1,5 +1,4 @@
-- Migrate the database after today's schema changes,
-- Inspect whether the strict schema settings button actually works
 - Produce OpenAPI docuemntation or the API routes. \
 - Implement a script that uses playwright to take screen shots of the websites, 
 - Change the code diagram to an image 
+- Make ENV vars halt build if not present
