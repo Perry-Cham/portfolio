@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Mail } from 'lucide-react';
+import { env } from '@/lib/env';
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -9,7 +10,7 @@ export function Footer() {
         <p className="text-sm text-muted-foreground">© {year} P.C</p>
         <div className="flex items-center gap-3">
           <Link
-            href={process.env.GITHUB!}
+            href={env.GITHUB}
             aria-label="GitHub"
             className="text-muted-foreground hover:text-foreground"
             target="_blank"
@@ -19,7 +20,7 @@ export function Footer() {
           </Link>
 
           <Link
-            href={`mailto:${process.env.EMAIL}`}
+            href={`mailto:${env.EMAIL}`}
             aria-label="Email"
             className="text-muted-foreground hover:text-foreground"
           >

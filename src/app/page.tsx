@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { SkillsSection } from '@/components/home/skills-section';
 import { ProjectCard } from '@/components/projects/project-card';
 import { TypingAnimation } from '@/components/home/typing-animation';
+import { LightRays } from '@/components/ui/light-rays';
 
 async function getLatestProjects() {
   const projects = await db.project.findMany({
@@ -97,6 +98,8 @@ export default async function HomePage() {
             </div>
           </div>
         </div>
+
+        <LightRays count={10}/>
       </section>
 
       {/* About blurb */}

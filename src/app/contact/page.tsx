@@ -1,5 +1,6 @@
 import { Mail, MapPin, Phone, Github, Linkedin, Twitter } from 'lucide-react';
 import { ContactForm } from '@/components/contact/contact-form';
+import { env } from '@/lib/env';
 
 export default function ContactPage() {
   return (
@@ -37,16 +38,16 @@ export default function ContactPage() {
                 <div>
                   <p className="font-medium">Email</p>
                   <a
-                    href={`mailto:${process.env.EMAIL}`}
+                    href={`mailto:${env.EMAIL}`}
                     className="text-muted-foreground hover:text-foreground"
-                  >{process.env.EMAIL}</a>
+                  >{env.EMAIL}</a>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <Phone className="mt-0.5 h-4 w-4 text-muted-foreground" />
                 <div>
                   <p className="font-medium">Phone</p>
-                  <p className="text-muted-foreground">{process.env.PHONE}</p>
+                  <p className="text-muted-foreground">{env.PHONE}</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
@@ -65,7 +66,7 @@ export default function ContactPage() {
             <h3 className="mb-4 text-base font-semibold">Elsewhere</h3>
             <div className="flex gap-3">
               <a
-                href={process.env.GITHUB}
+                href={env.GITHUB}
                 aria-label="GitHub"
                 target="_blank"
                 rel="noopener noreferrer"

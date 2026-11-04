@@ -1,11 +1,11 @@
+'use client';
+//This component uses framer motion to get an effect where the skills cards roll in
+import { motion, Variants } from 'framer-motion';
 import {
   Code,
-  Database,
   Layout,
-  Server,
   Wrench,
   Zap,
-  Settings,
   PersonStanding,
 } from 'lucide-react';
 
@@ -16,6 +16,7 @@ type SkillGroup = {
   items: string[];
 };
 
+//Card Data
 const groups: SkillGroup[] = [
   {
     icon: <Layout className="h-5 w-5" />,
@@ -50,9 +51,38 @@ const groups: SkillGroup[] = [
   },
 ];
 
+// Animation variants for container and items
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15, // Stagger effect between each card
+    },
+  },
+};
+
+const cardVariants: Variants = {
+  hidden: { 
+    opacity: 0, 
+    x: -80,        // Starts off-screen to the left
+    rotate: -10    // Slight tilt for a "rolling" entry effect
+  },
+  visible: { 
+    opacity: 1, 
+    x: 0, 
+    rotate: 0,     // Settles into place upright
+    transition: { 
+      type: 'spring', 
+      damping: 20, 
+      stiffness: 100 
+    } 
+  },
+};
+
 export function SkillsSection() {
   return (
-    <section id="skills" className="py-20">
+    <section id="skills" className="py-20 overflow-hidden">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mb-12 max-w-2xl">
           <p className="mb-2 text-sm font-medium uppercase tracking-wider text-primary">
@@ -69,11 +99,19 @@ export function SkillsSection() {
           </p>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Animated Grid Container */}
+        <motion.div 
+          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {groups.map((group) => (
-            <div
+            <motion.div
               key={group.title}
-              className="rounded-xl border border-border/60 bg-card p-6 transition-all hover:border-border hover:shadow-sm"
+              variants={cardVariants}
+              className="rounded-xl border border-border/60 bg-card p-6 transition-colors hover:border-border hover:shadow-sm"
             >
               <div className="mb-4 flex items-center gap-3">
                 <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
@@ -84,19 +122,21 @@ export function SkillsSection() {
               <p className="mb-4 text-sm text-muted-foreground">
                 {group.blurb}
               </p>
-              <div className="flex flex-wrap gap-1.5">
-                {group.items.map((item) => (
-                  <span
-                    key={item}
-                    className="rounded-md bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
+              {group.items.length > 0 && (
+                <div className="flex flex-wrap gap-1.5">
+                  {group.items.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-md bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,20 +1,17 @@
+import { z } from "zod";
 
-/*const data = {
-    github: process.env.GITHUB,
-    email: process.env.EMAIL,
-    phone: process.env.PHONE
-} */
+const envSchema = z.object({
+  GITHUB: z.string().min(1, "GITHUB is required"),
+  EMAIL: z.email("EMAIL must be a valid email"),
+  PHONE: z.string().min(1, "PHONE is required"),
+  NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
+});
 
-function checkENVs(data: Record<string, string | undefined>) {
-  const errors: string[] = [];
-
-  for (const [key, value] of Object.entries(data)) {
-    if (value === undefined || value === "") {
-      errors.push(key); 
-    }
-  }
-
-  if (errors.length > 0) {
-    throw new Error(`Missing environment variables: ${errors.join(", ")}`);
-  }
-}
+// Parses process.env. If any variable is missing or invalid, 
+// parse() will immediately throw an error and stop the build.
+export const env = envSchema.parse({
+  GITHUB: process.env.GITHUB,
+  EMAIL: process.env.EMAIL,
+  PHONE: process.env.PHONE,
+  NODE_ENV: process.env.NODE_ENV,
+})
